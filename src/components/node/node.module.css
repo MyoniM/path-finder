@@ -1,0 +1,96 @@
+.node {
+  min-height: 30px;
+  min-width: 30px;
+  border-bottom: solid rgb(200, 200, 200) 0.5px;
+  border-right: solid rgb(200, 200, 200) 0.5px;
+}
+
+.animation {
+  transition: background-color 2000ms linear;
+}
+
+.searchAnimation {
+  background-color: rgb(71, 71, 255);
+  animation: visit 1s ease-in-out;
+}
+
+.backtrack {
+  background-color: rgb(255, 255, 0);
+  animation: backtrack 1s ease-in-out;
+}
+
+.clicked {
+  background-color: gray;
+  border-bottom: solid grey 0.5px;
+  border-right: solid grey 0.5px;
+}
+
+.source {
+  background-color: rgb(64, 224, 208);
+}
+
+.target {
+  background-color: rgb(211, 64, 224);
+}
+
+.wall {
+  background-color: rgb(126, 126, 126);
+  animation: zoom-in-zoom-out 0.2s ease-in-out;
+}
+
+.tutorial {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@keyframes zoom-in-zoom-out {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes visit {
+  0% {
+    transform: scale(0.5, 0.5);
+    background-color: turquoise;
+    border-radius: 50%;
+  }
+  50% {
+    transform: scale(1, 1);
+    background-color: rgb(55, 66, 223);
+    border-radius: 20%;
+  }
+  100% {
+    background-color: rgb(71, 71, 255);
+    border-radius: 0%;
+  }
+}
+
+@keyframes backtrack {
+  0% {
+    transform: scale(0.5, 0.5);
+    background-color: white;
+    border-radius: 50%;
+  }
+  50% {
+    transform: scale(1, 1);
+    background-color: rgb(243, 223, 41);
+    border-radius: 20%;
+  }
+  100% {
+    background-color: rgb(245, 230, 101);
+    border-radius: 0%;
+  }
+}
