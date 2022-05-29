@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <>
-      <Grid />
+      <Grid openHelp={setOpened}/>
       <IntroModal opened={opened} setOpened={setOpened} />
     </>
   );

@@ -48,7 +48,6 @@ export const getNewGridWithWallToggled = (
       isWall = false;
     }
   } else if (mode === Mode.MOVE) {
-    //
   }
   const newNode = {
     ...node,

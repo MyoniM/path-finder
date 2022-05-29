@@ -17,7 +17,10 @@ export default function IntroModal({ opened, setOpened }: IProp) {
   let lastIndex = index === intro.length - 1;
   const handleContinue = () => {
     if (index + 1 < intro.length) setIndex(index + 1);
-    else setOpened(false);
+    else {
+      setIndex(0);
+      setOpened(false);
+    }
   };
   return (
     <Modal size={"650px"} opened={opened} onClose={() => setOpened(false)}>

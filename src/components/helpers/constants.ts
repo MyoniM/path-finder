@@ -7,8 +7,8 @@ export const tutorialColors = [
 export const algorithms = [
   { value: "dijkstra", label: "Dijkstra" },
   { value: "aStar", label: "A*" },
-  { value: "bfs", label: "Breadth First Search" },
-  { value: "dfs", label: "Depth First Search" },
+  // { value: "bfs", label: "Breadth First Search" },
+  // { value: "dfs", label: "Depth First Search" },
 ];
 
 export const gridTypes = [
@@ -33,8 +33,8 @@ export const intro = [
     imgSrc: "/color-type-intro.png",
     body: "There are four main colors that differentiate every item on the grid",
   },
-  {
-    imgSrc: "/drag-drop-intro.png",
-    body: "You can drag and move both source and target nodes to change their position on the layout",
-  },
+  // {
+  //   imgSrc: "/drag-drop-intro.png",
+  //   body: "You can drag and move both source and target nodes to change their position on the layout",
+  // },
 ];

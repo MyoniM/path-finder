@@ -21,15 +21,19 @@ import {
 import { algorithms, gridTypes, tutorialColors } from "../helpers/constants";
 import Logo from "../Logo";
 
-export default function Grid() {
+interface IProp {
+  openHelp: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export default function Grid({ openHelp }: IProp) {
   console.log("====================");
 
-  const [gridType, setGridType] = useState("custom");
+  const [gridType, setGridType] = useState<string>("custom");
   const [grid, setGrid] = useState<INode[][]>(getGridType(gridType)!);
 
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [mouseDown, setMouseDown] = useState<boolean>(false);
   const [mode, setMode] = useState<Mode>(Mode.BUILD);
-  const [algorithmValue, setAlgorithmValue] = useState("dijkstra");
+  const [algorithmValue, setAlgorithmValue] = useState<string>("dijkstra");
 
   useEffect(() => {
     setGrid(getGridType(gridType)!);
@@ -40,15 +44,12 @@ export default function Grid() {
     let id = `node-${row}-${col}`;
     let node = document.getElementById(id);
     // if clicked node is source or target
-    if (
+    let mainNode =
       node?.classList.contains(nodeClass.source) ||
-      node?.classList.contains(nodeClass.target)
-    ) {
-      // setIsMainNode(true);
-      setMode(Mode.MOVE);
-    }
-    // if the clicked node contains wall class
-    // change to clean mode
+      node?.classList.contains(nodeClass.target);
+
+    if (mainNode) setMode(Mode.MOVE);
+    // if the clicked node contains wall class change to clean mode
     else if (node?.classList.contains(nodeClass.wall)) setMode(Mode.CLEAN);
     else setMode(Mode.BUILD);
 
@@ -68,6 +69,7 @@ export default function Grid() {
 
   const animateShortestPath = (nodesInShortestPathOrder: INode[]) => {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+      if (i + 1 === nodesInShortestPathOrder.length) setIsAnimating(false);
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
         document
@@ -104,6 +106,8 @@ export default function Grid() {
   };
 
   const handleSubmit = () => {
+    handleReset();
+    setIsAnimating(true);
     visualizeDijkstra();
   };
   const handleReset = () => {
@@ -130,18 +134,36 @@ export default function Grid() {
             <Select
               value={gridType}
               data={gridTypes}
-              onChange={(data) => setGridType(data!)}
+              disabled={isAnimating}
+              onChange={(data) => {
+                handleReset();
+                setGridType(data!);
+              }}
             />
             <Select
               value={algorithmValue}
               data={algorithms}
-              onChange={(data) => setAlgorithmValue(data!)}
+              disabled={isAnimating}
+              onChange={(data) => {
+                handleReset();
+                setAlgorithmValue(data!);
+              }}
             />
-            <Button color="blue" variant="filled" onClick={handleSubmit}>
+            <Button
+              color="blue"
+              variant="filled"
+              onClick={handleSubmit}
+              disabled={isAnimating}
+            >
               Animate{" "}
               {algorithms.find((e) => e.value === algorithmValue!)?.label}
             </Button>
-            <Button color="red" variant="filled" onClick={handleReset}>
+            <Button
+              color="red"
+              variant="filled"
+              onClick={handleReset}
+              disabled={isAnimating}
+            >
               Reset
             </Button>
           </div>
@@ -153,6 +175,8 @@ export default function Grid() {
               color="blue"
               variant="outline"
               style={{ marginRight: "10px" }}
+              onClick={() => openHelp(true)}
+              disabled={isAnimating}
             >
               Help?
             </Button>
