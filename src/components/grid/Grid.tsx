@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { AppShell, Button, ColorSwatch, Group } from "@mantine/core";
+import { useEffect, useState } from "react";
+import { AppShell, Button, ColorSwatch, Group, Select } from "@mantine/core";
 
 import classes from "./grid.module.css";
 import nodeClass from "../node/node.module.css";
@@ -8,7 +8,7 @@ import Node from "../node/Node";
 import {
   FINISH_NODE_COL,
   FINISH_NODE_ROW,
-  generateEmptyGrid,
+  getGridType,
   getNewGridWithWallToggled,
   START_NODE_COL,
   START_NODE_ROW,
@@ -18,20 +18,22 @@ import {
   dijkstra,
   getNodesInShortestPathOrder,
 } from "../helpers/algorithms/dijkstra";
-import { simpleMaze } from "../helpers/maze";
-import { tutorialColors } from "../helpers/constants";
+import { algorithms, gridTypes, tutorialColors } from "../helpers/constants";
+import Logo from "../Logo";
 
 export default function Grid() {
   console.log("====================");
 
-  const [grid, setGrid] = useState<INode[][]>(
-    // generateEmptyGrid()
-    simpleMaze
-  );
+  const [gridType, setGridType] = useState("custom");
+  const [grid, setGrid] = useState<INode[][]>(getGridType(gridType)!);
 
   const [mouseDown, setMouseDown] = useState<boolean>(false);
   const [mode, setMode] = useState<Mode>(Mode.BUILD);
+  const [algorithmValue, setAlgorithmValue] = useState("dijkstra");
 
+  useEffect(() => {
+    setGrid(getGridType(gridType)!);
+  }, [gridType]);
   // check if user triggered mouse down on a wall
   // if yes, set clean mode. else set build mode
   const handleMouseDown = (row: number, col: number) => {
@@ -104,15 +106,15 @@ export default function Grid() {
   const handleSubmit = () => {
     visualizeDijkstra();
   };
-  // const handleReset = () => {
-  //   let nodes = document.getElementsByClassName(nodeClass.node);
-  //   for (let i = 0; i < nodes.length; i++) {
-  //     nodes[i].classList.remove(nodeClass.searchAnimation, nodeClass.backtrack);
-  //   }
-  // };
+  const handleReset = () => {
+    let nodes = document.getElementsByClassName(nodeClass.node);
+    for (let i = 0; i < nodes.length; i++) {
+      nodes[i].classList.remove(nodeClass.searchAnimation, nodeClass.backtrack);
+    }
+  };
 
   const swatches = tutorialColors.map((e, i) => (
-    <div className={nodeClass.swatch}>
+    <div className={classes.swatch}>
       <ColorSwatch key={i} color={e.color} />
       <p>{e.tag}</p>
     </div>
@@ -123,26 +125,27 @@ export default function Grid() {
       fixed
       header={
         <div className={classes.wrapper}>
-          <div></div>
-          <div>
-            <Button
-              color="blue"
-              variant="filled"
-              style={{ marginRight: "10px" }}
-              onClick={handleSubmit}
-            >
-              Animate {"Dijkstra"}
+          <Logo />
+          <div className={classes.algorithm}>
+            <Select
+              value={gridType}
+              data={gridTypes}
+              onChange={(data) => setGridType(data!)}
+            />
+            <Select
+              value={algorithmValue}
+              data={algorithms}
+              onChange={(data) => setAlgorithmValue(data!)}
+            />
+            <Button color="blue" variant="filled" onClick={handleSubmit}>
+              Animate{" "}
+              {algorithms.find((e) => e.value === algorithmValue!)?.label}
             </Button>
-            {/* <Button
-              color="red"
-              variant="light"
-              style={{ marginRight: "10px" }}
-              onClick={handleReset}
-            >
+            <Button color="red" variant="filled" onClick={handleReset}>
               Reset
-            </Button> */}
+            </Button>
           </div>
-          <div className={nodeClass.tutorial}>
+          <div className={classes.tutorial}>
             <Group position="center" spacing="xs">
               {swatches}
             </Group>
@@ -151,7 +154,7 @@ export default function Grid() {
               variant="outline"
               style={{ marginRight: "10px" }}
             >
-              Tutorial
+              Help?
             </Button>
           </div>
         </div>

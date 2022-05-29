@@ -1,3 +1,4 @@
+import { simpleMaze } from "./maze";
 import { INode, Mode } from "./types";
 
 export const START_NODE_ROW = 14;
@@ -55,4 +56,13 @@ export const getNewGridWithWallToggled = (
   };
   newGrid[row][col] = newNode;
   return newGrid;
+};
+
+export const getGridType = (selectedType: any) => {
+  switch (selectedType) {
+    case "custom":
+      return generateEmptyGrid();
+    case "sMaze":
+      return simpleMaze;
+  }
 };

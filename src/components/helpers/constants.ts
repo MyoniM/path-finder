@@ -1,6 +1,17 @@
 export const tutorialColors = [
-  { color: "rgb(71, 71, 255)", tag: "Visited" },
-  { color: "rgb(255, 255, 0)", tag: "Shortest Path" },
-  { color: "rgb(64, 224, 208)", tag: "Source" },
-  { color: "rgb(211, 64, 224)", tag: "Target" },
+  { color: "#3092e9", tag: "Visited" },
+  { color: "#F7D716", tag: "Shortest Path" },
+  { color: "#40e0d0", tag: "Source" },
+  { color: "#d340e0", tag: "Target" },
+];
+export const algorithms = [
+  { value: "dijkstra", label: "Dijkstra" },
+  { value: "aStar", label: "A*" },
+  { value: "bfs", label: "Breadth First Search" },
+  { value: "dfs", label: "Depth First Search" },
+];
+
+export const gridTypes = [
+  { value: "custom", label: "Custom Grid" },
+  { value: "sMaze", label: "Simple Maze" },
 ];

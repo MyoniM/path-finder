@@ -11,3 +11,20 @@
 .row {
   display: flex;
 }
+
+.algorithm {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tutorial {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
