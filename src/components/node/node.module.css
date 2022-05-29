@@ -10,12 +10,12 @@
 }
 
 .searchAnimation {
-  background-color: #3092e9;
+  background-color: #3f9cec;
   animation: visit 1s ease-in-out;
 }
 
 .backtrack {
-  background-color: #F7D716;
+  background-color: #f7d716;
   animation: backtrack 1s ease-in-out;
 }
 
@@ -26,10 +26,12 @@
 }
 
 .source {
+  cursor: pointer;
   background-color: rgb(64, 224, 208);
 }
 
 .target {
+  cursor: pointer;
   background-color: rgb(211, 64, 224);
 }
 
@@ -53,7 +55,7 @@
 @keyframes visit {
   0% {
     transform: scale(0.5, 0.5);
-    background-color: rgb(135, 255, 65);
+    background-color: turquoise;
     border-radius: 50%;
   }
   50% {

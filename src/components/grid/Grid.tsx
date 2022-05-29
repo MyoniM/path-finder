@@ -114,8 +114,8 @@ export default function Grid() {
   };
 
   const swatches = tutorialColors.map((e, i) => (
-    <div className={classes.swatch}>
-      <ColorSwatch key={i} color={e.color} />
+    <div className={classes.swatch} key={i}>
+      <ColorSwatch color={e.color} />
       <p>{e.tag}</p>
     </div>
   ));
