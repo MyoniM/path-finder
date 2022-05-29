@@ -41,19 +41,21 @@ export default function Grid({ openHelp }: IProp) {
   // check if user triggered mouse down on a wall
   // if yes, set clean mode. else set build mode
   const handleMouseDown = (row: number, col: number) => {
-    let id = `node-${row}-${col}`;
-    let node = document.getElementById(id);
-    // if clicked node is source or target
-    let mainNode =
-      node?.classList.contains(nodeClass.source) ||
-      node?.classList.contains(nodeClass.target);
+    if (!isAnimating) {
+      let id = `node-${row}-${col}`;
+      let node = document.getElementById(id);
+      // if clicked node is source or target
+      let mainNode =
+        node?.classList.contains(nodeClass.source) ||
+        node?.classList.contains(nodeClass.target);
 
-    if (mainNode) setMode(Mode.MOVE);
-    // if the clicked node contains wall class change to clean mode
-    else if (node?.classList.contains(nodeClass.wall)) setMode(Mode.CLEAN);
-    else setMode(Mode.BUILD);
+      if (mainNode) setMode(Mode.MOVE);
+      // if the clicked node contains wall class change to clean mode
+      else if (node?.classList.contains(nodeClass.wall)) setMode(Mode.CLEAN);
+      else setMode(Mode.BUILD);
 
-    setMouseDown(true);
+      setMouseDown(true);
+    }
   };
   const handleMouseUp = () => {
     setMouseDown(false);
@@ -64,7 +66,7 @@ export default function Grid({ openHelp }: IProp) {
     }
   };
   const handleClick = (row: number, col: number) => {
-    setGrid(getNewGridWithWallToggled(grid, mode, row, col));
+    if (!isAnimating) setGrid(getNewGridWithWallToggled(grid, mode, row, col));
   };
 
   const animateShortestPath = (nodesInShortestPathOrder: INode[]) => {

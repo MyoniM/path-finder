@@ -33,6 +33,6 @@ export default function Node({
       onMouseUp={handleMouseUp}
       onMouseEnter={handleMouseEnter}
       className={`${node} ${wall} ${source} ${target}`}
-    ></div>
+    ><span></span></div>
   );
 }

@@ -1,10 +1,10 @@
 import { simpleMaze } from "./maze";
 import { INode, Mode } from "./types";
 
-export const START_NODE_ROW = 14;
-export const START_NODE_COL = 10;
-export const FINISH_NODE_ROW = 14;
-export const FINISH_NODE_COL = 47;
+export let START_NODE_ROW = 14;
+export let START_NODE_COL = 10;
+export let FINISH_NODE_ROW = 14;
+export let FINISH_NODE_COL = 47;
 
 const createNode = (row: number, col: number): INode => ({
   row,
@@ -36,7 +36,7 @@ export const getNewGridWithWallToggled = (
   col: number
 ) => {
   const newGrid = grid.slice();
-  const node = newGrid[row][col];
+  let node = newGrid[row][col];
   let isWall = node.isWall;
   let isNormalNode = !node.isSource && !node.isTarget;
   if (mode === Mode.BUILD) {
