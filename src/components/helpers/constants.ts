@@ -21,19 +21,19 @@ export const intro = [
     body: "Before you get started we will walk you through a tutorial to get you familiar with the features of the website",
   },
   {
-    imgSrc: "/grid.png",
+    imgSrc: "/grid.PNG",
     body: "You can change between multiple grid types or even create your own layout satisfying your own need",
   },
   {
-    imgSrc: "/algorithm.png",
+    imgSrc: "/algorithm.PNG",
     body: "You can change between multiple algorithms to simulate what their key difference is when trying to find the shortest path",
   },
   {
-    imgSrc: "/color.png",
+    imgSrc: "/color.PNG",
     body: "There are colors and shapes that differentiate every item on the grid",
   },
   {
-    imgSrc: "/drag.png",
+    imgSrc: "/drag.PNG",
     body: "You can drag and move both source and target nodes to change their position on the layout",
   },
 ];
