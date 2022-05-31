@@ -22,7 +22,7 @@ export const intro = [
   },
   {
     imgSrc: "/grid.PNG",
-    body: "You can change between multiple grid types or even create your own layout satisfying your own need by clicking and on boxes",
+    body: "You can change between multiple grid types or even create your own layout satisfying your own need by clicking on boxes(Click again to erase)",
   },
   {
     imgSrc: "/algorithm.PNG",
