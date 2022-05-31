@@ -22,12 +22,13 @@ export const intro = [
   },
   {
     imgSrc: "/grid.PNG",
-    body: "You can change between multiple grid types or even create your own layout satisfying your own need",
+    body: "You can change between multiple grid types or even create your own layout satisfying your own need by clicking and on boxes",
   },
   {
     imgSrc: "/algorithm.PNG",
     body: "You can change between multiple algorithms to simulate what their key difference is when trying to find the shortest path",
   },
+
   {
     imgSrc: "/color.PNG",
     body: "There are colors and shapes that differentiate every item on the grid",
