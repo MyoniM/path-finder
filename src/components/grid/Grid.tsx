@@ -6,14 +6,11 @@ import nodeClass from "../node/node.module.css";
 
 import Node from "../node/Node";
 import {
-  FINISH_NODE_COL,
-  FINISH_NODE_ROW,
   getGridType,
   getNewGridWithWallToggled,
-  START_NODE_COL,
-  START_NODE_ROW,
+  getNodeProps,
 } from "../helpers/helper";
-import { INode, Mode } from "../helpers/types";
+import { INode, Mode, NodeProp } from "../helpers/types";
 import {
   dijkstra,
   getNodesInShortestPathOrder,
@@ -44,12 +41,10 @@ export default function Grid({ openHelp }: IProp) {
     if (!isAnimating) {
       let id = `node-${row}-${col}`;
       let node = document.getElementById(id);
-      // if clicked node is source or target
-      let mainNode =
-        node?.classList.contains(nodeClass.source) ||
-        node?.classList.contains(nodeClass.target);
-
-      if (mainNode) setMode(Mode.MOVE);
+      // if clicked node is source
+      if (node?.classList.contains(nodeClass.source)) setMode(Mode.MOVE_SOURCE);
+      else if (node?.classList.contains(nodeClass.target))
+        setMode(Mode.MOVE_TARGET);
       // if the clicked node contains wall class change to clean mode
       else if (node?.classList.contains(nodeClass.wall)) setMode(Mode.CLEAN);
       else setMode(Mode.BUILD);
@@ -99,9 +94,11 @@ export default function Grid({ openHelp }: IProp) {
       }, 10 * i);
     }
   };
-  const visualizeDijkstra = async () => {
-    const startNode = grid[START_NODE_ROW][START_NODE_COL];
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+  const visualizeDijkstra = async (nodeProps: NodeProp) => {
+    const startNode = grid[nodeProps.START_NODE_ROW][nodeProps.START_NODE_COL];
+    const finishNode =
+      grid[nodeProps.FINISH_NODE_ROW][nodeProps.FINISH_NODE_COL];
+
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder!, nodesInShortestPathOrder);
@@ -110,9 +107,11 @@ export default function Grid({ openHelp }: IProp) {
   const handleSubmit = () => {
     handleReset();
     setIsAnimating(true);
-    visualizeDijkstra();
+    visualizeDijkstra(getNodeProps());
   };
   const handleReset = () => {
+    // must reset node properties
+    setGrid(getGridType(gridType)!);
     let nodes = document.getElementsByClassName(nodeClass.node);
     for (let i = 0; i < nodes.length; i++) {
       nodes[i].classList.remove(nodeClass.searchAnimation, nodeClass.backtrack);
@@ -157,7 +156,7 @@ export default function Grid({ openHelp }: IProp) {
               onClick={handleSubmit}
               disabled={isAnimating}
             >
-              Animate{" "}
+              Visualize{" "}
               {algorithms.find((e) => e.value === algorithmValue!)?.label}
             </Button>
             <Button
