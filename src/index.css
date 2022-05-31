@@ -15,7 +15,22 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+.main {
+  position: relative;
+}
 
+.main::after {
+  content: "Yonatan Merkebu";
+  position: fixed;
+  bottom: 10px;
+  left: 45%;
+  padding: 0px 5px;
+  /* border: #3092e9 solid .5px; */
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: #5eb4ff;
+  background-color: white;
+}
 .logo {
   margin-left: 10px;
   font-weight: 700;

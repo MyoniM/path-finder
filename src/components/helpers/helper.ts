@@ -1,5 +1,5 @@
-import { simpleMaze } from "./maze";
 import { INode, Mode } from "./types";
+import { generateEmptyGrid, generateQWalls } from "./maze/maze";
 
 let START_NODE_ROW = 14;
 let START_NODE_COL = 10;
@@ -13,7 +13,7 @@ export const getNodeProps = () => ({
   FINISH_NODE_COL,
 });
 
-const createNode = (row: number, col: number): INode => ({
+export const createNode = (row: number, col: number, extra: any): INode => ({
   row,
   col,
   isSource: row === START_NODE_ROW && col === START_NODE_COL,
@@ -22,19 +22,8 @@ const createNode = (row: number, col: number): INode => ({
   distance: Infinity,
   isVisited: false,
   previousNode: null,
+  ...extra,
 });
-
-export const generateEmptyGrid = (): INode[][] => {
-  const grid: INode[][] = [];
-  for (let i = 0; i < 36; i++) {
-    let row: INode[] = [];
-    for (let j = 0; j < 72; j++) {
-      row.push(createNode(i, j));
-    }
-    grid.push(row);
-  }
-  return grid;
-};
 
 export const getNewGridWithWallToggled = (
   grid: INode[][],
@@ -97,7 +86,9 @@ export const getGridType = (selectedType: any) => {
   switch (selectedType) {
     case "custom":
       return generateEmptyGrid();
-    case "sMaze":
-      return simpleMaze;
+    case "q13":
+      return generateQWalls(false);
+    case "q24":
+      return generateQWalls(true);
   }
 };

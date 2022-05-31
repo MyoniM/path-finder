@@ -1,19 +1,18 @@
 export const tutorialColors = [
-  { color: "#3092e9", tag: "Visited" },
-  { color: "#F7D716", tag: "Shortest Path" },
-  { color: "#40e0d0", tag: "Source" },
-  { color: "#d340e0", tag: "Target" },
+  { color: "#40cee3", tag: "Visited" },
+  { color: "#f1f511", tag: "Shortest Path" },
 ];
 export const algorithms = [
   { value: "dijkstra", label: "Dijkstra" },
-  { value: "aStar", label: "A*" },
+  // { value: "aStar", label: "A*" },
   // { value: "bfs", label: "Breadth First Search" },
   // { value: "dfs", label: "Depth First Search" },
 ];
 
 export const gridTypes = [
   { value: "custom", label: "Custom Grid" },
-  { value: "sMaze", label: "Simple Maze" },
+  { value: "q13", label: "Diagonal Q1 - Q3" },
+  { value: "q24", label: "Diagonal Q2 - Q4" },
 ];
 
 export const intro = [
@@ -31,10 +30,10 @@ export const intro = [
   },
   {
     imgSrc: "/color-type-intro.png",
-    body: "There are four main colors that differentiate every item on the grid",
+    body: "There are colors and shapes that differentiate every item on the grid",
   },
-  // {
-  //   imgSrc: "/drag-drop-intro.png",
-  //   body: "You can drag and move both source and target nodes to change their position on the layout",
-  // },
+  {
+    imgSrc: "/drag-drop-intro.png",
+    body: "You can drag and move both source and target nodes to change their position on the layout",
+  },
 ];

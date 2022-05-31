@@ -17,6 +17,7 @@ import {
 } from "../helpers/algorithms/dijkstra";
 import { algorithms, gridTypes, tutorialColors } from "../helpers/constants";
 import Logo from "../Logo";
+import { resetGrid } from "../helpers/maze/maze";
 
 interface IProp {
   openHelp: React.Dispatch<React.SetStateAction<boolean>>;
@@ -109,9 +110,10 @@ export default function Grid({ openHelp }: IProp) {
     setIsAnimating(true);
     visualizeDijkstra(getNodeProps());
   };
+
   const handleReset = () => {
     // must reset node properties
-    setGrid(getGridType(gridType)!);
+    setGrid(resetGrid(grid));
     let nodes = document.getElementsByClassName(nodeClass.node);
     for (let i = 0; i < nodes.length; i++) {
       nodes[i].classList.remove(nodeClass.searchAnimation, nodeClass.backtrack);
@@ -171,6 +173,18 @@ export default function Grid({ openHelp }: IProp) {
           <div className={classes.tutorial}>
             <Group position="center" spacing="xs">
               {swatches}
+              <div className={classes.swatch}>
+                <div className={`${nodeClass.node} ${nodeClass.source}`}>
+                  <span></span>
+                </div>
+                Source Node
+              </div>
+              <div className={classes.swatch}>
+                <div className={`${nodeClass.node} ${nodeClass.target}`}>
+                  <span></span>
+                </div>
+                Target Node
+              </div>
             </Group>
             <Button
               color="blue"
