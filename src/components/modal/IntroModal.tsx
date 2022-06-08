@@ -4,7 +4,7 @@ import { Modal, Button } from "@mantine/core";
 import Logo from "../Logo";
 
 import classes from "./modal.module.css";
-import { intro } from "../helpers/constants";
+import { intro } from "../../helpers/constants";
 import Step from "./Step";
 
 interface IProp {

@@ -9,21 +9,20 @@ import {
   getGridType,
   getNewGridWithWallToggled,
   getNodeProps,
-} from "../helpers/helper";
-import { INode, Mode, NodeProp } from "../helpers/types";
-import {
-  dijkstra,
   getNodesInShortestPathOrder,
-} from "../helpers/algorithms/dijkstra";
-import { algorithms, gridTypes, tutorialColors } from "../helpers/constants";
+  getVisitedNodes,
+} from "../../helpers/helper";
+import { INode, Mode, NodeProp } from "../../helpers/types";
+
+import { algorithms, gridTypes, tutorialColors } from "../../helpers/constants";
 import Logo from "../Logo";
-import { resetGrid } from "../helpers/maze/maze";
+import { resetGrid } from "../../helpers/maze/maze";
 
 interface IProp {
   openHelp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function Grid({ openHelp }: IProp) {
-  console.log("====================");
+  // console.log("====================");
 
   const [gridType, setGridType] = useState<string>("custom");
   const [grid, setGrid] = useState<INode[][]>(getGridType(gridType)!);
@@ -76,7 +75,7 @@ export default function Grid({ openHelp }: IProp) {
       }, 50 * i);
     }
   };
-  const animateDijkstra = (
+  const animateAlgorithm = (
     visitedNodesInOrder: INode[],
     nodesInShortestPathOrder: INode[]
   ) => {
@@ -95,20 +94,25 @@ export default function Grid({ openHelp }: IProp) {
       }, 10 * i);
     }
   };
-  const visualizeDijkstra = async (nodeProps: NodeProp) => {
+  const visualizeAlgorithm = async (nodeProps: NodeProp) => {
     const startNode = grid[nodeProps.START_NODE_ROW][nodeProps.START_NODE_COL];
     const finishNode =
       grid[nodeProps.FINISH_NODE_ROW][nodeProps.FINISH_NODE_COL];
 
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+    const visitedNodesInOrder = getVisitedNodes(
+      algorithmValue,
+      grid,
+      startNode,
+      finishNode
+    );
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    animateDijkstra(visitedNodesInOrder!, nodesInShortestPathOrder);
+    animateAlgorithm(visitedNodesInOrder!, nodesInShortestPathOrder);
   };
 
   const handleSubmit = () => {
     handleReset();
     setIsAnimating(true);
-    visualizeDijkstra(getNodeProps());
+    visualizeAlgorithm(getNodeProps());
   };
 
   const handleReset = () => {
@@ -129,6 +133,7 @@ export default function Grid({ openHelp }: IProp) {
   return (
     <AppShell
       padding={0}
+      style={{ width: "1920px" }}
       fixed
       header={
         <div className={classes.wrapper}>

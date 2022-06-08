@@ -1,3 +1,4 @@
+import { getAllNodes } from "../helper";
 import { INode } from "../types";
 export const dijkstra = (
   grid: INode[][],
@@ -23,16 +24,6 @@ export const dijkstra = (
   }
 };
 
-const getAllNodes = (grid: INode[][]) => {
-  const nodes = [];
-  for (const row of grid) {
-    for (const node of row) {
-      nodes.push(node);
-    }
-  }
-  return nodes;
-};
-
 const sortNodesByDistance = (unvisitedNodes: INode[]) => {
   unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
 };
@@ -54,16 +45,4 @@ const getUnvisitedNeighbors = (node: INode, grid: INode[][]) => {
   if (col > 0) neighbors.push(grid[row][col - 1]);
   if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
   return neighbors.filter((neighbor) => !neighbor.isVisited);
-};
-
-// Backtracks from the finishNode to find the shortest path.
-// Only works when called *after* the dijkstra method above.
-export const getNodesInShortestPathOrder = (finishNode: INode) => {
-  const nodesInShortestPathOrder = [];
-  let currentNode = finishNode;
-  while (currentNode !== null) {
-    nodesInShortestPathOrder.unshift(currentNode);
-    currentNode = currentNode.previousNode;
-  }
-  return nodesInShortestPathOrder;
 };

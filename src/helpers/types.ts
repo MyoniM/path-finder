@@ -4,10 +4,17 @@ export interface INode {
   isWall: boolean;
   isSource: boolean;
   isTarget: boolean;
-  distance: number;
   isVisited: boolean;
   previousNode: any;
+  // specific to dijkstra
+  distance: number;
+  // End dijkstra
+  // specific to A*
+  distanceFromStart: number;
+  estimatedDistanceToEnd: number;
+  // End A*
 }
+
 export interface NodeProp {
   START_NODE_ROW: number;
   START_NODE_COL: number;

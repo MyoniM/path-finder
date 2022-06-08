@@ -4,7 +4,7 @@ export const tutorialColors = [
 ];
 export const algorithms = [
   { value: "dijkstra", label: "Dijkstra" },
-  // { value: "aStar", label: "A*" },
+  { value: "aStar", label: "A*" },
   // { value: "bfs", label: "Breadth First Search" },
   // { value: "dfs", label: "Depth First Search" },
 ];

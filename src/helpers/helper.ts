@@ -1,10 +1,12 @@
 import { INode, Mode } from "./types";
 import { generateEmptyGrid, generateQWalls } from "./maze/maze";
+import { aStar } from "./algorithms/aStar";
+import { dijkstra } from "./algorithms/dijkstra";
 
 let START_NODE_ROW = 14;
 let START_NODE_COL = 10;
 let FINISH_NODE_ROW = 14;
-let FINISH_NODE_COL = 50;
+let FINISH_NODE_COL = 30;
 
 export const getNodeProps = () => ({
   START_NODE_ROW,
@@ -13,15 +15,29 @@ export const getNodeProps = () => ({
   FINISH_NODE_COL,
 });
 
+export const getAllNodes = (grid: INode[][]) => {
+  const nodes = [];
+  for (const row of grid) {
+    for (const node of row) {
+      nodes.push(node);
+    }
+  }
+  return nodes;
+};
+
 export const createNode = (row: number, col: number, extra: any): INode => ({
   row,
   col,
   isSource: row === START_NODE_ROW && col === START_NODE_COL,
   isTarget: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
   isWall: false,
-  distance: Infinity,
   isVisited: false,
   previousNode: null,
+  // dijkstra
+  distance: Infinity,
+  // a*
+  distanceFromStart: Infinity,
+  estimatedDistanceToEnd: Infinity,
   ...extra,
 });
 
@@ -91,4 +107,30 @@ export const getGridType = (selectedType: any) => {
     case "q24":
       return generateQWalls(true);
   }
+};
+
+export const getVisitedNodes = (
+  algorithmType: string,
+  grid: INode[][],
+  startNode: INode,
+  finishNode: INode
+) => {
+  switch (algorithmType) {
+    case "dijkstra":
+      return dijkstra(grid, startNode, finishNode);
+    case "aStar":
+      return aStar(grid, startNode, finishNode);
+  }
+};
+
+// Backtracks from the finishNode to find the shortest path.
+// Works if called after getVisitedNodes
+export const getNodesInShortestPathOrder = (finishNode: INode) => {
+  const nodesInShortestPathOrder = [];
+  let currentNode = finishNode;
+  while (currentNode !== null) {
+    nodesInShortestPathOrder.unshift(currentNode);
+    currentNode = currentNode.previousNode;
+  }
+  return nodesInShortestPathOrder;
 };
