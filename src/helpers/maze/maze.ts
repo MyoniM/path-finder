@@ -4,20 +4,19 @@ import { INode } from "../types";
 export const generateEmptyGrid = (): INode[][] => {
   const grid: INode[][] = [];
   for (let i = 0; i < 36; i++) {
-    let row: INode[] = [];
+    grid.push([]);
     for (let j = 0; j < 72; j++) {
-      row.push(createNode(i, j, {}));
+      grid[i].push(createNode(i, j, {}));
     }
-    grid.push(row);
   }
   return grid;
 };
 export const resetGrid = (prevGrid: INode[][]): INode[][] => {
   const grid: INode[][] = [];
   for (let i = 0; i < prevGrid.length; i++) {
-    let row: INode[] = [];
+    grid.push([]);
     for (let j = 0; j < prevGrid[0].length; j++) {
-      row.push({
+      grid[i].push({
         ...prevGrid[i][j],
         ...{
           distance: Infinity,
@@ -26,7 +25,6 @@ export const resetGrid = (prevGrid: INode[][]): INode[][] => {
         },
       });
     }
-    grid.push(row);
   }
   return grid;
 };
