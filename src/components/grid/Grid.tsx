@@ -30,7 +30,7 @@ export default function Grid({ openHelp }: IProp) {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [mouseDown, setMouseDown] = useState<boolean>(false);
   const [mode, setMode] = useState<Mode>(Mode.BUILD);
-  const [algorithmValue, setAlgorithmValue] = useState<string>("dijkstra");
+  const [algorithmValue, setAlgorithmValue] = useState<string>("aStar");
 
   useEffect(() => {
     setGrid(getGridType(gridType)!);
@@ -105,13 +105,14 @@ export default function Grid({ openHelp }: IProp) {
       startNode,
       finishNode
     );
+    console.log(visitedNodesInOrder);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateAlgorithm(visitedNodesInOrder!, nodesInShortestPathOrder);
   };
 
   const handleSubmit = () => {
     handleReset();
-    setIsAnimating(true);
+    // setIsAnimating(true);
     visualizeAlgorithm(getNodeProps());
   };
 

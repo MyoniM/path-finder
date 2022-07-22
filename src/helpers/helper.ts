@@ -26,6 +26,7 @@ export const getAllNodes = (grid: INode[][]) => {
 };
 
 export const createNode = (row: number, col: number, extra: any): INode => ({
+  id: `node-${row}-${col}`,
   row,
   col,
   isSource: row === START_NODE_ROW && col === START_NODE_COL,

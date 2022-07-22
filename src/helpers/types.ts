@@ -1,4 +1,5 @@
 export interface INode {
+  id: string;
   row: number;
   col: number;
   isWall: boolean;

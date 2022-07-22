@@ -5,10 +5,10 @@ import IntroModal from "./components/modal/IntroModal";
 const App = () => {
   const [opened, setOpened] = useState(false);
 
-  useEffect(() => {
-    window.addEventListener("load", () => setOpened(true));
-    return () => window.removeEventListener("load", () => {});
-  });
+  // useEffect(() => {
+  //   window.addEventListener("load", () => setOpened(true));
+  //   return () => window.removeEventListener("load", () => {});
+  // });
 
   return (
     <div className="main">

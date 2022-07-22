@@ -1,7 +1,8 @@
-import { getAllNodes } from "../helper";
 import { INode } from "../types";
+import { BinaryHeap } from "./binaryHeap";
 
 export const aStar = (grid: INode[][], startNode: INode, finishNode: INode) => {
+
   startNode.distanceFromStart = 0;
   startNode.estimatedDistanceToEnd = calculateManhattanDistance(
     startNode,
@@ -9,45 +10,50 @@ export const aStar = (grid: INode[][], startNode: INode, finishNode: INode) => {
   );
 
   const visitedNodesInOrder: INode[] = [];
-  let nodesToVisit = getAllNodes(grid);
-  while (!!nodesToVisit.length) {
-    sortNodesByHeuristicValue(nodesToVisit);
+  let nodesToVisit = new BinaryHeap([startNode]);
 
-    let currentMinDistanceNode = nodesToVisit.shift();
-    // If the closest node is at a distance of infinity,
-    // we must be trapped and should therefore stop.
-    if (currentMinDistanceNode!.distanceFromStart === Infinity)
-      return visitedNodesInOrder;
+  while (!nodesToVisit.isEmpty()) {
+    
+    let currentMinDistanceNode = nodesToVisit.remove();
+
+
     currentMinDistanceNode!.isVisited = true;
     visitedNodesInOrder.push(currentMinDistanceNode!);
     if (currentMinDistanceNode === finishNode) return visitedNodesInOrder;
-    updateUnvisitedNeighbors(currentMinDistanceNode!, finishNode, grid);
+
+    let neighbors = getUnvisitedNeighbors(currentMinDistanceNode!, grid);
+    console.log(neighbors.length);
+    
+    for (const neighbor of neighbors) {
+      if (neighbor.isWall) continue;
+
+      let tentativeDistanceToNeighbor =
+        currentMinDistanceNode!.distanceFromStart + 1;
+      // this means the neighbor has short G-store (distance from start)
+      console.log(tentativeDistanceToNeighbor >= neighbor.distanceFromStart);
+      
+      if (tentativeDistanceToNeighbor >= neighbor.distanceFromStart) continue;
+
+      neighbor.previousNode = currentMinDistanceNode;
+      // update G-store
+      neighbor.distanceFromStart = tentativeDistanceToNeighbor;
+      // F-Store = G + H
+      neighbor.estimatedDistanceToEnd =
+        tentativeDistanceToNeighbor +
+        calculateManhattanDistance(neighbor, finishNode);
+
+      if (nodesToVisit.containsNode(neighbor)) {
+        console.log(neighbor);
+        nodesToVisit.update(neighbor);
+      } else {
+        console.log("====", neighbor);
+        nodesToVisit.insert(neighbor);
+      }
+    }
   }
-};
-
-// update the neighbors distance for the next loop
-const updateUnvisitedNeighbors = (
-  node: INode,
-  finishNode: INode,
-  grid: INode[][]
-) => {
-  let neighbors = getUnvisitedNeighbors(node!, grid);
-
-  for (const neighbor of neighbors) {
-    if (neighbor.isWall) continue;
-
-    let tentativeDistanceToNeighbor = node!.distanceFromStart + 1;
-    // this means the neighbor has short G-store (distance from start)
-    if (tentativeDistanceToNeighbor >= neighbor.distanceFromStart) continue;
-
-    neighbor.previousNode = node;
-    // update G-store
-    neighbor.distanceFromStart = tentativeDistanceToNeighbor;
-    // F-Store = G + H
-    neighbor.estimatedDistanceToEnd =
-      tentativeDistanceToNeighbor +
-      calculateManhattanDistance(neighbor, finishNode);
-  }
+  // If we reach this line, the heap should be empty!
+  // May result when neighbors are wall
+  return visitedNodesInOrder
 };
 
 // heuristic value
@@ -67,11 +73,4 @@ const getUnvisitedNeighbors = (node: INode, grid: INode[][]) => {
   if (col > 0) neighbors.push(grid[row][col - 1]);
   if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
   return neighbors;
-};
-
-const sortNodesByHeuristicValue = (unvisitedNodes: INode[]) => {
-  unvisitedNodes.sort(
-    (nodeA, nodeB) =>
-      nodeA.estimatedDistanceToEnd - nodeB.estimatedDistanceToEnd
-  );
 };
