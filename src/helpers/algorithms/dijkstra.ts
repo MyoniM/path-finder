@@ -9,8 +9,10 @@ export const dijkstra = (
   startNode.distance = 0;
   const unvisitedNodes = getAllNodes(grid);
   while (!!unvisitedNodes.length) {
+    // well, this is a dumb way to get the node with the shortest distance
+    // should later be changed with heap(also for A*) 
     sortNodesByDistance(unvisitedNodes);
-    // pop from the front(Queue)
+    // pop from the front
     const closestNode = unvisitedNodes.shift();
     // If we encounter a wall, we skip it.
     if (closestNode!.isWall) continue;
