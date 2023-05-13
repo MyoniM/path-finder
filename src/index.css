@@ -3,8 +3,7 @@ body {
   width: 1920px;
   min-height: 1080px;
   overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -19,18 +18,19 @@ body {
   position: relative;
 }
 
-.main::after {
-  content: "Yonatan Merkebu";
-  position: fixed;
-  bottom: 10px;
-  left: 45%;
-  padding: 0px 5px;
-  /* border: #3092e9 solid .5px; */
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  color: #5eb4ff;
-  background-color: white;
-}
+/* .main::after { */
+/* content: "Yonatan Merkebu"; */
+/* position: fixed; */
+/* bottom: 10px; */
+/* left: 45%; */
+/* padding: 0px 5px; */
+/* border: #3092e9 solid .5px; */
+/* border-radius: 5px; */
+/* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+/* color: #5eb4ff; */
+/* background-color: white; */
+/* } */
+
 .logo {
   margin-left: 10px;
   font-weight: 700;
