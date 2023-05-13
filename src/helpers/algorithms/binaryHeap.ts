@@ -1,21 +1,17 @@
-import { INode } from "../types";
+import { INode } from '../types';
 
 export const BinaryHeap = class BinaryHeap {
   nodesPositionInHeap: {};
   heap: INode[];
 
   constructor(array: INode[]) {
-    this.nodesPositionInHeap = Object.fromEntries(
-      array.map((node, idx) => [node.id, idx])
-    );
+    this.nodesPositionInHeap = Object.fromEntries(array.map((node, idx) => [node.id, idx]));
     this.heap = this.buildHeap(array);
   }
 
   buildHeap(array: INode[]): INode[] {
     let firstParentIndex = Math.floor((array.length - 2) / 2);
-    for (let currentIndex of Array.from(
-      Array(firstParentIndex + 1).keys()
-    ).reverse()) {
+    for (let currentIndex of Array.from(Array(firstParentIndex + 1).keys()).reverse()) {
       this.siftDown(currentIndex, array.length - 1, array);
     }
     return array;
@@ -25,20 +21,12 @@ export const BinaryHeap = class BinaryHeap {
     let childOneIndex = currentIndex * 2 + 1;
     while (childOneIndex <= endIndex) {
       let indexToSwap;
-      let childTwoIndex =
-        currentIndex * 2 + 2 <= endIndex ? currentIndex * 2 + 2 : -1;
-      if (
-        childTwoIndex !== -1 &&
-        heap[childTwoIndex].estimatedDistanceToEnd <
-          heap[childOneIndex].estimatedDistanceToEnd
-      ) {
+      let childTwoIndex = currentIndex * 2 + 2 <= endIndex ? currentIndex * 2 + 2 : -1;
+      if (childTwoIndex !== -1 && heap[childTwoIndex].estimatedDistanceToEnd < heap[childOneIndex].estimatedDistanceToEnd) {
         indexToSwap = childTwoIndex;
       } else indexToSwap = childOneIndex;
 
-      if (
-        heap[indexToSwap].estimatedDistanceToEnd <
-        heap[currentIndex].estimatedDistanceToEnd
-      ) {
+      if (heap[indexToSwap].estimatedDistanceToEnd < heap[currentIndex].estimatedDistanceToEnd) {
         this.swap(currentIndex, indexToSwap, heap);
         currentIndex = indexToSwap;
         childOneIndex = currentIndex * 2 + 1;
@@ -48,11 +36,7 @@ export const BinaryHeap = class BinaryHeap {
 
   siftUp(currentIndex: number, heap: INode[]) {
     let parentIndex = Math.floor((currentIndex - 1) / 2);
-    while (
-      currentIndex > 0 &&
-      heap[currentIndex].estimatedDistanceToEnd <
-        heap[parentIndex].estimatedDistanceToEnd
-    ) {
+    while (currentIndex > 0 && heap[currentIndex].estimatedDistanceToEnd < heap[parentIndex].estimatedDistanceToEnd) {
       this.swap(currentIndex, parentIndex, heap);
       currentIndex = parentIndex;
       parentIndex = Math.floor((currentIndex - 1) / 2);

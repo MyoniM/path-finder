@@ -1,4 +1,5 @@
 import classes from "./node.module.css";
+
 interface Prop {
   row: number;
   col: number;

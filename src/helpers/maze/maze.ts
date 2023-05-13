@@ -1,5 +1,5 @@
-import { createNode, getNodeProps } from "../helper";
-import { INode } from "../types";
+import { createNode, getNodeProps } from '../helper';
+import { INode } from '../types';
 
 export const generateEmptyGrid = (): INode[][] => {
   const grid: INode[][] = [];
@@ -11,6 +11,7 @@ export const generateEmptyGrid = (): INode[][] => {
   }
   return grid;
 };
+
 export const resetGrid = (prevGrid: INode[][]): INode[][] => {
   const grid: INode[][] = [];
   for (let i = 0; i < prevGrid.length; i++) {
@@ -35,10 +36,8 @@ export const generateQWalls = (q24: boolean) => {
   for (let i = 0; i < 36; i++) {
     let row: INode[] = [];
     for (let j = 0; j < 72; j++) {
-      const nodeNotSource =
-        i !== nodeProps.START_NODE_ROW || j !== nodeProps.START_NODE_COL;
-      const nodeNotTarget =
-        i !== nodeProps.FINISH_NODE_ROW || j !== nodeProps.FINISH_NODE_COL;
+      const nodeNotSource = i !== nodeProps.START_NODE_ROW || j !== nodeProps.START_NODE_COL;
+      const nodeNotTarget = i !== nodeProps.FINISH_NODE_ROW || j !== nodeProps.FINISH_NODE_COL;
 
       let rowModTwo, colModThree;
       if (q24) {
@@ -49,8 +48,7 @@ export const generateQWalls = (q24: boolean) => {
         colModThree = (j + i) % 3 === 0;
       }
 
-      const shouldBeWall =
-        nodeNotSource && nodeNotTarget && rowModTwo && colModThree;
+      const shouldBeWall = nodeNotSource && nodeNotTarget && rowModTwo && colModThree;
 
       console.log(shouldBeWall);
 

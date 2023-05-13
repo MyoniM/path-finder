@@ -1,11 +1,13 @@
 import { useState } from "react";
 
 import { Modal, Button } from "@mantine/core";
+
+import Step from "./Step";
 import Logo from "../Logo";
 
 import classes from "./modal.module.css";
+
 import { intro } from "../../helpers/constants";
-import Step from "./Step";
 
 interface IProp {
   opened: boolean;
@@ -15,6 +17,7 @@ interface IProp {
 export default function IntroModal({ opened, setOpened }: IProp) {
   const [index, setIndex] = useState(0);
   let lastIndex = index === intro.length - 1;
+
   const handleContinue = () => {
     if (index + 1 < intro.length) setIndex(index + 1);
     else {
@@ -22,6 +25,7 @@ export default function IntroModal({ opened, setOpened }: IProp) {
       setOpened(false);
     }
   };
+  
   return (
     <Modal size={"650px"} opened={opened} onClose={() => setOpened(false)}>
       <div>
